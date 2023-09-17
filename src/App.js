@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 function App() {
   function getMeetings(){
-    let payload ={
+    let data ={
         endDate: "2023-010-20T14:23:00.000Z",
         isLocked: true,
         fields: ["hostRoomUrl"],
@@ -14,10 +14,14 @@ function App() {
           Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
         },
       };
-    fetch(
-        `https://api.whereby.dev/v1/meetings`,optioans
-      )
-        .then((res) => res.json())
+      fetch("https://api.whereby.dev/v1/meetings", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    }).then((res) => res.json())
         .then((res) => {
           console.log("get meetings response:",res)
         })
